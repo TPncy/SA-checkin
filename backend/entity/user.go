@@ -10,8 +10,8 @@ type CheckIn struct {
 	gorm.Model
 	DateTime time.Time
 
-	CheckInID *uint
-	CheckIn   Customer `gorm:"references:id"`
+	CustomerID *uint
+	Customer   Customer `gorm:"references:id"`
 
 	ReserveID *uint
 	Reserve   Room `gorm:"references:id"`
@@ -30,7 +30,7 @@ type Customer struct {
 	Email string `gorm:"uniqueIndex"`
 	Tel   string
 
-	Record []CheckIn `gorm:"foreignKey:CheckInID"`
+	Record []CheckIn `gorm:"foreignKey:CustomerID"`
 }
 type Employee struct {
 	gorm.Model

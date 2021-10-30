@@ -14,6 +14,6 @@ export interface CheckInInterface {
 	Payment:   RoomPaymentsInterface,
 	EmployeeID: number,
 	Employee: EmployeesInterface,
-    CheckInID: number,
-	CheckIn:   CustomersInterface,
+    CustomerID: number,
+	Customer:   CustomersInterface,
 }

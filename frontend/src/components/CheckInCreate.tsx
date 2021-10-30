@@ -157,7 +157,7 @@ function CheckInCreate() {
 
   function submit() {
     let data = {
-      CheckInID: convertType(checkIn.CheckInID),
+      CustomerID: convertType(checkIn.CustomerID),
       ReserveID: convertType(checkIn.ReserveID),
       PaymentID: convertType(checkIn.PaymentID),
       EmployeeID:convertType(employees?.ID),
@@ -189,12 +189,12 @@ function CheckInCreate() {
         <Container className={classes.container} maxWidth="md">
         <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success">
-            บันทึกข้อมูลสำเร็จ
+            บันทึกสำเร็จ
           </Alert>
         </Snackbar>
         <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">
-            บันทึกข้อมูลไม่สำเร็จ
+            บันทึกผิดพลาด
           </Alert>
         </Snackbar>
         <Paper className={classes.paper}>
@@ -258,21 +258,21 @@ function CheckInCreate() {
             </Grid>
             <Grid item xs={6}>
               <FormControl fullWidth variant="outlined">
-                <p>รหัสลูกค้า</p>
+                <p>ชื่อลูกค้า</p>
                 <Select
                   native
-                  value={checkIn.CheckInID}
+                  value={checkIn.CustomerID}
                   onChange={handleChange}
                   inputProps={{
-                    name: "CheckInID",
+                    name: "CustomerID",
                   }}
                 >
                   <option aria-label="None" value="">
-                    กรุณาเลือกรหัสลูกค้า
+                    กรุณาเลือกชื่อลูกค้า
                   </option>
                   {customers.map((item: CustomersInterface) => (
                     <option value={item.ID} key={item.ID}>
-                      {item.ID}
+                      {item.Name}
                     </option>
                   ))}
                 </Select>

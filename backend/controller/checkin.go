@@ -35,7 +35,7 @@ func CreateCheckIn(c *gin.Context) {
 	}
 
 	// 12: ค้นหา Customer ด้วย id
-	if tx := entity.DB().Where("id = ?", checkin.CheckInID).First(&customer); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", checkin.CustomerID).First(&customer); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "customer not found"})
 		return
 	}
@@ -48,7 +48,7 @@ func CreateCheckIn(c *gin.Context) {
 	// 14: สร้าง CheckIn
 	ci := entity.CheckIn{
 		Reserve:  room,             // โยงความสัมพันธ์กับ Entity Room
-		CheckIn:  customer,         // โยงความสัมพันธ์กับ Entity Customer
+		Customer: customer,         // โยงความสัมพันธ์กับ Entity Customer
 		Payment:  roompayment,      // โยงความสัมพันธ์กับ Entity RoomPayment
 		Employee: employee,         // โยงความสัมพันธ์กับ Entity Employee
 		DateTime: checkin.DateTime, // ตั้งค่าฟิลด์ Date_time
@@ -66,7 +66,7 @@ func CreateCheckIn(c *gin.Context) {
 func GetCheckIn(c *gin.Context) {
 	var checkin entity.CheckIn
 	id := c.Param("id")
-	if err := entity.DB().Preload("Rooms").Preload("Customers").Preload("room_payments").Preload("Employees").Raw("SELECT * FROM check_ins WHERE id = ?", id).Find(&checkin).Error; err != nil {
+	if err := entity.DB().Preload("room").Preload("customer").Preload("roompayment").Preload("employee").Raw("SELECT * FROM check_ins WHERE id = ?", id).Find(&checkin).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -76,7 +76,7 @@ func GetCheckIn(c *gin.Context) {
 // GET /check_ins
 func ListCheckIns(c *gin.Context) {
 	var checkins []entity.CheckIn
-	if err := entity.DB().Preload("Rooms").Preload("Customers").Preload("room_payments").Preload("Employees").Raw("SELECT * FROM check_ins").Find(&checkins).Error; err != nil {
+	if err := entity.DB().Preload("room").Preload("customer").Preload("roompayment").Preload("employee").Raw("SELECT * FROM check_ins").Find(&checkins).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
