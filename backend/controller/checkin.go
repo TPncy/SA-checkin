@@ -16,36 +16,36 @@ func CreateCheckIn(c *gin.Context) {
 	var employee entity.Employee
 	var checkin entity.CheckIn
 
-	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 9 จะถูก bind เข้าตัวแปร CheckIn
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร CheckIn
 	if err := c.ShouldBindJSON(&checkin); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// 10: ค้นหา RoomPayment ด้วย id
+	// 9: ค้นหา RoomPayment ด้วย id
 	if tx := entity.DB().Where("id = ?", checkin.PaymentID).First(&roompayment); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "roomplayment not found"})
 		return
 	}
 
-	// 11: ค้นหา Room ด้วย id
+	// 10: ค้นหา Room ด้วย id
 	if tx := entity.DB().Where("id = ?", checkin.ReserveID).First(&room); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
 		return
 	}
 
-	// 12: ค้นหา Customer ด้วย id
+	// 11: ค้นหา Customer ด้วย id
 	if tx := entity.DB().Where("id = ?", checkin.CustomerID).First(&customer); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "customer not found"})
 		return
 	}
 
-	// 13: ค้นหา Employee ด้วย id
+	// 12: ค้นหา Employee ด้วย id
 	if tx := entity.DB().Where("id = ?", checkin.EmployeeID).First(&employee); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
 		return
 	}
-	// 14: สร้าง CheckIn
+	// 13: สร้าง CheckIn
 	ci := entity.CheckIn{
 		Reserve:  room,             // โยงความสัมพันธ์กับ Entity Room
 		Customer: customer,         // โยงความสัมพันธ์กับ Entity Customer
@@ -54,7 +54,7 @@ func CreateCheckIn(c *gin.Context) {
 		DateTime: checkin.DateTime, // ตั้งค่าฟิลด์ Date_time
 	}
 
-	// 15: บันทึก
+	// 14: บันทึก
 	if err := entity.DB().Create(&ci).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
