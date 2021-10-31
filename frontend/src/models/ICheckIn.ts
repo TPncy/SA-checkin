@@ -8,8 +8,8 @@ export interface CheckInInterface {
   ID: number,
   DateTime: Date,  
 
-	ReserveID: number,
-	Reserve: RoomsInterface,
+	RoomID: number,
+	Room: RoomsInterface,
 	PaymentID: number,
 	Payment:   RoomPaymentsInterface,
 	EmployeeID: number,

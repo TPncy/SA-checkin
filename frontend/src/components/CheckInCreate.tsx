@@ -158,7 +158,7 @@ function CheckInCreate() {
   function submit() {
     let data = {
       CustomerID: convertType(checkIn.CustomerID),
-      ReserveID: convertType(checkIn.ReserveID),
+      RoomID: convertType(checkIn.RoomID),
       PaymentID: convertType(checkIn.PaymentID),
       EmployeeID:convertType(employees?.ID),
       DateTime: selectedDate,
@@ -239,10 +239,10 @@ function CheckInCreate() {
                 <p>หมายเลขห้อง</p>
                 <Select
                   native
-                  value={checkIn.ReserveID}
+                  value={checkIn.RoomID}
                   onChange={handleChange}
                   inputProps={{
-                    name: "ReserveID",
+                    name: "RoomID",
                   }}
                 >
                   <option aria-label="None" value="">

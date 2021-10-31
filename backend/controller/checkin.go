@@ -29,7 +29,7 @@ func CreateCheckIn(c *gin.Context) {
 	}
 
 	// 10: ค้นหา Room ด้วย id
-	if tx := entity.DB().Where("id = ?", checkin.ReserveID).First(&room); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", checkin.RoomID).First(&room); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
 		return
 	}
@@ -47,7 +47,7 @@ func CreateCheckIn(c *gin.Context) {
 	}
 	// 13: สร้าง CheckIn
 	ci := entity.CheckIn{
-		Reserve:  room,             // โยงความสัมพันธ์กับ Entity Room
+		Room:     room,             // โยงความสัมพันธ์กับ Entity Room
 		Customer: customer,         // โยงความสัมพันธ์กับ Entity Customer
 		Payment:  roompayment,      // โยงความสัมพันธ์กับ Entity RoomPayment
 		Employee: employee,         // โยงความสัมพันธ์กับ Entity Employee

@@ -98,11 +98,11 @@ func SetupDatabase() {
 	// === Query
 	//
 
-	var target Employee
-	db.Model(&Employee{}).Find(&target, db.Where("email = ?", "chanwit@gmail.com"))
+	// var target Employee
+	// db.Model(&Employee{}).Find(&target, db.Where("email = ?", "chanwit@gmail.com"))
 
-	var employeeLogin Employee
-	db.Model(&Employee{}).Find(&employeeLogin, db.Where("email = ? and employee_id = ?", "พนักงานที่เข้าสู่ระบบ", target.ID))
+	// var employeeLogin Employee
+	// db.Model(&Employee{}).Find(&employeeLogin, db.Where("email = ? and employee_id = ?", "พนักงานที่เข้าสู่ระบบ", target.ID))
 
 	/*var watchedList []*WatchVideo
 	db.Model(&WatchVideo{}).

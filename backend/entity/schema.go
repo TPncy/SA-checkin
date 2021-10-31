@@ -13,8 +13,8 @@ type CheckIn struct {
 	CustomerID *uint
 	Customer   Customer `gorm:"references:id"`
 
-	ReserveID *uint
-	Reserve   Room `gorm:"references:id"`
+	RoomID *uint
+	Room   Room `gorm:"references:id"`
 
 	PaymentID *uint       `gorm:"uniqueIndex"`
 	Payment   RoomPayment `gorm:"references:id"`
@@ -53,5 +53,5 @@ type Room struct {
 	Location   string
 	Roomnumber string
 
-	Records []CheckIn `gorm:"foreignKey:ReserveID"`
+	Records []CheckIn `gorm:"foreignKey:RoomID"`
 }
